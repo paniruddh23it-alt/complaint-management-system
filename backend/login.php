@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "db.php";
 
 $email = $_POST['email'];
@@ -8,7 +9,8 @@ $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 $result = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($result) > 0) {
-    header("Location: ../dashboard.html");
+    $_SESSION['user'] = $email;   // create session
+    header("Location: ../dashboard.php");
 } else {
     echo "Invalid Login";
 }
